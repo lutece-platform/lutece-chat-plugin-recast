@@ -34,70 +34,79 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * DialogResponse
  */
-public class DialogResponse 
+public class DialogResponse implements Serializable
 {
-        // Variables declarations 
-        private List<Message> _listMessages;
-        private Conversation _conversation;
-        private NLP _nlp;
-    
-    
-       /**
-        * Returns the Messages
-        * @return The Messages
-        */ 
-        public List<Message> getMessages()
-        {
-            return _listMessages;
-        }
-    
-       /**
-        * Sets the Messages
-        * @param listMessages The Messages
-        */ 
-        public void setMessages( List<Message> listMessages )
-        {
-            _listMessages = listMessages;
-        }
-    
-       /**
-        * Returns the Conversation
-        * @return The Conversation
-        */ 
-        public Conversation getConversation()
-        {
-            return _conversation;
-        }
-    
-       /**
-        * Sets the Conversation
-        * @param conversation The Conversation
-        */ 
-        public void setConversation( Conversation conversation )
-        {
-            _conversation = conversation;
-        }
-    
-       /**
-        * Returns the Nlp
-        * @return The Nlp
-        */ 
-        public NLP getNlp()
-        {
-            return _nlp;
-        }
-    
-       /**
-        * Sets the Nlp
-        * @param nlp The Nlp
-        */ 
-        public void setNlp( NLP nlp )
-        {
-            _nlp = nlp;
-        }
+    // Variables declarations
+    private List<Message> _listMessages;
+    private Conversation _conversation;
+    private NLP _nlp;
+
+    /**
+     * Returns the Messages
+     * 
+     * @return The Messages
+     */
+    public List<Message> getMessages( )
+    {
+        return _listMessages;
+    }
+
+    /**
+     * Sets the Messages
+     * 
+     * @param listMessages
+     *            The Messages
+     */
+    public void setMessages( List<Message> listMessages )
+    {
+        _listMessages = listMessages;
+    }
+
+    /**
+     * Returns the Conversation
+     * 
+     * @return The Conversation
+     */
+    public Conversation getConversation( )
+    {
+        return _conversation;
+    }
+
+    /**
+     * Sets the Conversation
+     * 
+     * @param conversation
+     *            The Conversation
+     */
+    public void setConversation( Conversation conversation )
+    {
+        _conversation = conversation;
+    }
+
+    /**
+     * Returns the Nlp
+     * 
+     * @return The Nlp
+     */
+    public NLP getNlp( )
+    {
+        return _nlp;
+    }
+
+    /**
+     * Sets the Nlp
+     * 
+     * @param nlp
+     *            The Nlp
+     */
+    public void setNlp( NLP nlp )
+    {
+        _nlp = nlp;
+    }
 }

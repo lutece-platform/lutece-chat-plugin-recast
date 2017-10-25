@@ -34,49 +34,58 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+
 /**
  * Message
  */
-public class Message 
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class Message implements Serializable
 {
-        // Variables declarations 
-        private String _strType;
-        private String _strContent;
-    
-    
-       /**
-        * Returns the Type
-        * @return The Type
-        */ 
-        public String getType()
-        {
-            return _strType;
-        }
-    
-       /**
-        * Sets the Type
-        * @param strType The Type
-        */ 
-        public void setType( String strType )
-        {
-            _strType = strType;
-        }
-    
-       /**
-        * Returns the Content
-        * @return The Content
-        */ 
-        public String getContent()
-        {
-            return _strContent;
-        }
-    
-       /**
-        * Sets the Content
-        * @param strContent The Content
-        */ 
-        public void setContent( String strContent )
-        {
-            _strContent = strContent;
-        }
+    // Variables declarations
+    private String _strType;
+    private String _strContent;
+
+    /**
+     * Returns the Type
+     * 
+     * @return The Type
+     */
+    public String getType( )
+    {
+        return _strType;
+    }
+
+    /**
+     * Sets the Type
+     * 
+     * @param strType
+     *            The Type
+     */
+    public void setType( String strType )
+    {
+        _strType = strType;
+    }
+
+    /**
+     * Returns the Content
+     * 
+     * @return The Content
+     */
+    public String getContent( )
+    {
+        return _strContent;
+    }
+
+    /**
+     * Sets the Content
+     * 
+     * @param strContent
+     *            The Content
+     */
+    public void setContent( String strContent )
+    {
+        _strContent = strContent;
+    }
 }

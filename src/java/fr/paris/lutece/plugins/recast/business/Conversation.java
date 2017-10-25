@@ -34,109 +34,127 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Conversation
  */
-public class Conversation 
+public class Conversation implements Serializable
 {
 
-        // Variables declarations 
-        private String _strId;
-        private String _strLanguage;
-        private List _listMemory;
-        private String _strSkill;
-        private int _nSkillOccurences;
-    
-    
-       /**
-        * Returns the Id
-        * @return The Id
-        */ 
-        public String getId()
-        {
-            return _strId;
-        }
-    
-       /**
-        * Sets the Id
-        * @param strId The Id
-        */ 
-        public void setId( String strId )
-        {
-            _strId = strId;
-        }
-    
-       /**
-        * Returns the Language
-        * @return The Language
-        */ 
-        public String getLanguage()
-        {
-            return _strLanguage;
-        }
-    
-       /**
-        * Sets the Language
-        * @param strLanguage The Language
-        */ 
-        public void setLanguage( String strLanguage )
-        {
-            _strLanguage = strLanguage;
-        }
-    
-       /**
-        * Returns the Memory
-        * @return The Memory
-        */ 
-        public List getMemory()
-        {
-            return _listMemory;
-        }
-    
-       /**
-        * Sets the Memory
-        * @param listMemory The Memory
-        */ 
-        public void setMemory( List listMemory )
-        {
-            _listMemory = listMemory;
-        }
-    
-       /**
-        * Returns the Skill
-        * @return The Skill
-        */ 
-        public String getSkill()
-        {
-            return _strSkill;
-        }
-    
-       /**
-        * Sets the Skill
-        * @param strSkill The Skill
-        */ 
-        public void setSkill( String strSkill )
-        {
-            _strSkill = strSkill;
-        }
-    
-       /**
-        * Returns the SkillOccurences
-        * @return The SkillOccurences
-        */ 
-        public int getSkillOccurences()
-        {
-            return _nSkillOccurences;
-        }
-    
-       /**
-        * Sets the SkillOccurences
-        * @param nSkillOccurences The SkillOccurences
-        */ 
-        public void setSkillOccurences( int nSkillOccurences )
-        {
-            _nSkillOccurences = nSkillOccurences;
-        }
- }
+    // Variables declarations
+    private String _strId;
+    private String _strLanguage;
+    private Map<String, Object> _mapMemory;
+    private String _strSkill;
+    private int _nSkillOccurences;
+
+    /**
+     * Returns the Id
+     * 
+     * @return The Id
+     */
+    public String getId( )
+    {
+        return _strId;
+    }
+
+    /**
+     * Sets the Id
+     * 
+     * @param strId
+     *            The Id
+     */
+    public void setId( String strId )
+    {
+        _strId = strId;
+    }
+
+    /**
+     * Returns the Language
+     * 
+     * @return The Language
+     */
+    public String getLanguage( )
+    {
+        return _strLanguage;
+    }
+
+    /**
+     * Sets the Language
+     * 
+     * @param strLanguage
+     *            The Language
+     */
+    public void setLanguage( String strLanguage )
+    {
+        _strLanguage = strLanguage;
+    }
+
+    /**
+     * Returns the Memory
+     * 
+     * @return The Memory
+     */
+    public Map<String, Object> getMemory( )
+    {
+        return _mapMemory;
+    }
+
+    /**
+     * Sets the Memory
+     * 
+     * @param mapMemory
+     *            The Memory
+     */
+    public void setMemory( Map<String, Object> mapMemory )
+    {
+        _mapMemory = mapMemory;
+    }
+
+    /**
+     * Returns the Skill
+     * 
+     * @return The Skill
+     */
+    public String getSkill( )
+    {
+        return _strSkill;
+    }
+
+    /**
+     * Sets the Skill
+     * 
+     * @param strSkill
+     *            The Skill
+     */
+    public void setSkill( String strSkill )
+    {
+        _strSkill = strSkill;
+    }
+
+    /**
+     * Returns the SkillOccurences
+     * 
+     * @return The SkillOccurences
+     */
+    public int getSkillOccurences( )
+    {
+        return _nSkillOccurences;
+    }
+
+    /**
+     * Sets the SkillOccurences
+     * 
+     * @param nSkillOccurences
+     *            The SkillOccurences
+     */
+    @JsonProperty( "skill_occurences" )
+    public void setSkillOccurences( int nSkillOccurences )
+    {
+        _nSkillOccurences = nSkillOccurences;
+    }
+}

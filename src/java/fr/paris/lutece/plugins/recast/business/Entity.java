@@ -34,10 +34,12 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import java.io.Serializable;
+
 /**
  * Entity
  */
-public class Entity 
+public class Entity implements Serializable
 {
 
 }

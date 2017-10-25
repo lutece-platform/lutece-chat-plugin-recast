@@ -34,50 +34,57 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import java.io.Serializable;
+
 /**
  * Intent
  */
-public class Intent 
+public class Intent implements Serializable
 {
-        // Variables declarations 
-        private String _strSlug;
-        private float _fConfidence;
-    
-    
-       /**
-        * Returns the Slug
-        * @return The Slug
-        */ 
-        public String getSlug()
-        {
-            return _strSlug;
-        }
-    
-       /**
-        * Sets the Slug
-        * @param strSlug The Slug
-        */ 
-        public void setSlug( String strSlug )
-        {
-            _strSlug = strSlug;
-        }
-    
-       /**
-        * Returns the Confidence
-        * @return The Confidence
-        */ 
-        public float getConfidence()
-        {
-            return _fConfidence;
-        }
-    
-       /**
-        * Sets the Confidence
-        * @param fConfidence The Confidence
-        */ 
-        public void setConfidence( float fConfidence )
-        {
-            _fConfidence = fConfidence;
-        }
+    // Variables declarations
+    private String _strSlug;
+    private float _fConfidence;
+
+    /**
+     * Returns the Slug
+     * 
+     * @return The Slug
+     */
+    public String getSlug( )
+    {
+        return _strSlug;
+    }
+
+    /**
+     * Sets the Slug
+     * 
+     * @param strSlug
+     *            The Slug
+     */
+    public void setSlug( String strSlug )
+    {
+        _strSlug = strSlug;
+    }
+
+    /**
+     * Returns the Confidence
+     * 
+     * @return The Confidence
+     */
+    public float getConfidence( )
+    {
+        return _fConfidence;
+    }
+
+    /**
+     * Sets the Confidence
+     * 
+     * @param fConfidence
+     *            The Confidence
+     */
+    public void setConfidence( float fConfidence )
+    {
+        _fConfidence = fConfidence;
+    }
 
 }
