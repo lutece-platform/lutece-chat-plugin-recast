@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.recast.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.paris.lutece.plugins.recast.business.DialogResponse;
+import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
@@ -57,16 +58,19 @@ public class RecastDialogService
      * Scan the CNI
      *
      * @param strText The message
+     * @param strConversationId The consersation ID
+     * @param strToken The Recast bot token
+     * @param strLanguage The language
      * @return The Dialog response
      * @throws HttpAccessException
      * @throws IOException
      */
-    public static DialogResponse getDialogResponse(String strText, String strConversationId, String strToken ) throws HttpAccessException, IOException
+    public static DialogResponse getDialogResponse(String strText, String strConversationId, String strToken, String strLanguage  ) throws HttpAccessException, IOException
     {
         DialogResponse response;
         HttpAccess client = new HttpAccess();
         String strURL = AppPropertiesService.getProperty(PROPERTY_DIALOG_API_URL);
-        String strJson = getJson(strText ,strConversationId );
+        String strJson = getJson(strText ,strConversationId, strLanguage );
         Map<String, String> mapHeaders = getHeaders( strToken );
         String strResponse = client.doPostJSON(strURL, strJson, mapHeaders, null);
         response = parse(strResponse);
@@ -84,17 +88,19 @@ public class RecastDialogService
     {
         JsonNode nodeRoot = _mapper.readTree(strJSON);
         JsonNode nodeResults = nodeRoot.get("results");
-        String strDataJSON = nodeResults.toString();
-        DialogResponse response = _mapper.readValue(strDataJSON, DialogResponse.class);
+        String strResponseJSON = nodeResults.toString();
+        DialogResponse response = _mapper.readValue(strResponseJSON, DialogResponse.class);
 
-        System.out.println( "############" + strDataJSON );
+        AppLogService.debug( "Recast Response JSON : " + strResponseJSON );
         
         return response;
     }
 
-    private static String getJson(String strText, String strConversationId )
+    private static String getJson(String strText, String strConversationId, String strLanguage  )
     {
-        return String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"%s\"}", strText , strConversationId );
+        String strJSON = String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"%s\" , \"language\": \"%s\" }", strText , strConversationId , strLanguage  );
+        AppLogService.debug( "Recast Request JSON : " + strJSON );
+        return strJSON;
     }
 
     private static Map<String, String> getHeaders( String strToken )
