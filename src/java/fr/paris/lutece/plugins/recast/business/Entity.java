@@ -35,11 +35,12 @@
 package fr.paris.lutece.plugins.recast.business;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * Entity
  */
-public class Entity implements Serializable
+public class Entity extends HashMap implements Serializable
 {
 
 }

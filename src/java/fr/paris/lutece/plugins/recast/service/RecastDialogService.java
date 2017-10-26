@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.recast.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.paris.lutece.plugins.recast.business.DialogResponse;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
@@ -47,63 +48,66 @@ import java.util.Map;
  */
 public class RecastDialogService
 {
-    private static final String HEADER_AUTHORIZATION = "";
+
+    private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String HEADER_CONTENT_TYPE = "";
     private static final String CONTENT_TYPE = "";
 
     private static final String PROPERTY_DIALOG_API_URL = "recast.dialog.api.url";
     private static final String PROPERTY_TOKEN = "recast.authorization.token";
 
-    private static ObjectMapper _mapper = new ObjectMapper( );
+    private static ObjectMapper _mapper = new ObjectMapper();
 
     /**
      * Scan the CNI
      *
-     * @param strText
-     *            The message
+     * @param strText The message
      * @return The Dialog response
      * @throws HttpAccessException
      * @throws IOException
      */
-    public static DialogResponse getDialogResponse( String strText ) throws HttpAccessException, IOException
+    public static DialogResponse getDialogResponse(String strText) throws HttpAccessException, IOException
     {
         DialogResponse response;
-        HttpAccess client = new HttpAccess( );
-        String strURL = AppPropertiesService.getProperty( PROPERTY_DIALOG_API_URL );
-        String strJson = getJson( strText );
-        Map<String, String> mapHeaders = getHeaders( );
-        String strResponse = client.doPostJSON( strURL, strJson, mapHeaders, null );
-        response = parse( strResponse );
+        HttpAccess client = new HttpAccess();
+        String strURL = AppPropertiesService.getProperty(PROPERTY_DIALOG_API_URL);
+        String strJson = getJson(strText);
+        Map<String, String> mapHeaders = getHeaders();
+        String strResponse = client.doPostJSON(strURL, strJson, mapHeaders, null);
+        response = parse(strResponse);
         return response;
     }
 
     /**
      * Parse the response of the scanner server
      *
-     * @param strJSON
-     *            The response as JSON
+     * @param strJSON The response as JSON
      * @return The DialogResponse object
-     * @throws IOException
-     *             An exception
+     * @throws IOException An exception
      */
-    public static DialogResponse parse( String strJSON ) throws IOException
+    public static DialogResponse parse(String strJSON) throws IOException
     {
-        DialogResponse response = _mapper.readValue( strJSON, DialogResponse.class );
+        JsonNode nodeRoot = _mapper.readTree(strJSON);
+        JsonNode nodeResults = nodeRoot.get("results");
+        String strDataJSON = nodeResults.toString();
+        DialogResponse response = _mapper.readValue(strDataJSON, DialogResponse.class);
 
+        System.out.println( "############" + strDataJSON );
+        
         return response;
     }
 
-    private static String getJson( String strText )
+    private static String getJson(String strText)
     {
-        return String.format( "{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"CONVERSATION_ID\"}", strText );
+        return String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"CONVERSATION_ID\"}", strText);
     }
 
-    private static Map<String, String> getHeaders( )
+    private static Map<String, String> getHeaders()
     {
-        Map<String, String> mapHeaders = new HashMap<>( );
-        String strToken = AppPropertiesService.getProperty( PROPERTY_TOKEN );
-        mapHeaders.put( HEADER_AUTHORIZATION, strToken );
-        mapHeaders.put( HEADER_CONTENT_TYPE, CONTENT_TYPE );
+        Map<String, String> mapHeaders = new HashMap<>();
+        String strToken = AppPropertiesService.getProperty(PROPERTY_TOKEN);
+        mapHeaders.put(HEADER_AUTHORIZATION, "Token " + strToken);
+//        mapHeaders.put( HEADER_CONTENT_TYPE, CONTENT_TYPE );
         return mapHeaders;
     }
 }

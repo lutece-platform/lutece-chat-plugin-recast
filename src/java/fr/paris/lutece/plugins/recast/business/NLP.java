@@ -48,7 +48,7 @@ public class NLP implements Serializable
     private String _strSource;
     private String _strAct;
     private List<Intent> _listIntents;
-    private Map<String, Entity> _mapEntities;
+    private Map<String, List<Entity>> _mapEntities;
     private String _strLanguage;
     private String _strProcessingLanguage;
     private String _strType;
@@ -146,7 +146,7 @@ public class NLP implements Serializable
      * 
      * @return The Entities
      */
-    public Map<String, Entity> getEntities( )
+    public Map<String, List<Entity>> getEntities( )
     {
         return _mapEntities;
     }
@@ -157,7 +157,7 @@ public class NLP implements Serializable
      * @param mapEntities
      *            The Entities
      */
-    public void setEntities( Map<String, Entity> mapEntities )
+    public void setEntities( Map<String, List<Entity>> mapEntities )
     {
         _mapEntities = mapEntities;
     }
