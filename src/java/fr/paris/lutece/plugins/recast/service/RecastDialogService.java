@@ -48,13 +48,8 @@ import java.util.Map;
  */
 public class RecastDialogService
 {
-
     private static final String HEADER_AUTHORIZATION = "Authorization";
-    private static final String HEADER_CONTENT_TYPE = "";
-    private static final String CONTENT_TYPE = "";
-
     private static final String PROPERTY_DIALOG_API_URL = "recast.dialog.api.url";
-    private static final String PROPERTY_TOKEN = "recast.authorization.token";
 
     private static ObjectMapper _mapper = new ObjectMapper();
 
@@ -66,13 +61,13 @@ public class RecastDialogService
      * @throws HttpAccessException
      * @throws IOException
      */
-    public static DialogResponse getDialogResponse(String strText) throws HttpAccessException, IOException
+    public static DialogResponse getDialogResponse(String strText, String strConversationId, String strToken ) throws HttpAccessException, IOException
     {
         DialogResponse response;
         HttpAccess client = new HttpAccess();
         String strURL = AppPropertiesService.getProperty(PROPERTY_DIALOG_API_URL);
-        String strJson = getJson(strText);
-        Map<String, String> mapHeaders = getHeaders();
+        String strJson = getJson(strText ,strConversationId );
+        Map<String, String> mapHeaders = getHeaders( strToken );
         String strResponse = client.doPostJSON(strURL, strJson, mapHeaders, null);
         response = parse(strResponse);
         return response;
@@ -97,17 +92,16 @@ public class RecastDialogService
         return response;
     }
 
-    private static String getJson(String strText)
+    private static String getJson(String strText, String strConversationId )
     {
-        return String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"CONVERSATION_ID\"}", strText);
+        return String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"%s\"}", strText , strConversationId );
     }
 
-    private static Map<String, String> getHeaders()
+    private static Map<String, String> getHeaders( String strToken )
     {
         Map<String, String> mapHeaders = new HashMap<>();
-        String strToken = AppPropertiesService.getProperty(PROPERTY_TOKEN);
         mapHeaders.put(HEADER_AUTHORIZATION, "Token " + strToken);
-//        mapHeaders.put( HEADER_CONTENT_TYPE, CONTENT_TYPE );
+
         return mapHeaders;
     }
 }
