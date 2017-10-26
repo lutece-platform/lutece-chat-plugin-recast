@@ -8,31 +8,31 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
-        <artifactId>plugin-recast</artifactId>
+    <artifactId>plugin-recast</artifactId>
     <packaging>lutece-plugin</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
-		<name>Lutece recast plugin</name>
+    <name>Lutece recast plugin</name>
 
-     <repositories>
-         <repository>
-             <id>lutece</id>
-             <name>luteceRepository</name>
-             <url>http://dev.lutece.paris.fr/maven_repository</url>
-             <layout>default</layout>
-         </repository>
-         <repository>
-             <id>luteceSnapshot</id>
-             <name>luteceSnapshot</name>
-             <url>http://dev.lutece.paris.fr/snapshot_repository</url>
-             <snapshots>
-                 <enabled>true</enabled>
-             </snapshots>
-             <releases>
-                 <enabled>false</enabled>
-             </releases>
-         </repository>        
-     </repositories>
+    <repositories>
+        <repository>
+            <id>lutece</id>
+            <name>luteceRepository</name>
+            <url>http://dev.lutece.paris.fr/maven_repository</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>luteceSnapshot</id>
+            <name>luteceSnapshot</name>
+            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>        
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -53,4 +53,11 @@
         <jiraProjectName>RECAST</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
+    
+    <scm>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-chat-plugin-recast.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-chat-plugin-recast.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-chat-plugin-recast.git</url>
+    </scm>
+    
 </project>
