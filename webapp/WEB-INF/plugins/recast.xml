@@ -10,7 +10,7 @@
     <description>recast.plugin.description</description>
     <provider>recast.plugin.provider</provider>
     <provider-url>http://fr.lutece.paris.fr</provider-url>
-    <icon-url>images/admin/skin/feature_default_icon.png</icon-url>
+    <icon-url>images/admin/skin/plugins/recast.recast.png</icon-url>
     <copyright>Copyright (c) 2017 Mairie de Paris</copyright>
     <db-pool-required>1</db-pool-required>
     

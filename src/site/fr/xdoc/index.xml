@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>Plugin recast</title>
+        <title>Plugin Recast</title>
     </properties>
     <body>
-        <section name="Plugin recast">
-            <!--
+        <section name="Plugin Recast">
             <p>
                 <img src="images/recast.png" />
             </p>
-            -->
             <subsection name="Introduction">
-                <p></p>
+                <p>Ce plugin permet d'accéder à l'API de la plate-forme <a href="http://recast.ai">Recast.AI</a></p>
+                <p>
+                    Cette API offre des fonctionnalités de NLP (Natural Language Processing) qui permmettent
+                    d'extraire d'une phrase des intentions (Intents) et des entités (Entities). 
+                </p>
             </subsection>
             <subsection name="Configuration">
-                <p></p>
+                <p>Aucune configuration requise</p>
             </subsection>
             <subsection name="Usage">
-                <p></p>
+                <p>Ce plugin est utilisé par les chatbots Lutece basés sur la plate-forme Recast.AI</p>
             </subsection>
         </section>
     </body>

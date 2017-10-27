@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>Plugin recast</title>
+        <title>Plugin Recast</title>
     </properties>
     <body>
-        <section name="Plugin recast">
-            <!--
+        <section name="Plugin Recast">
             <p>
                 <img src="images/recast.png" />
             </p>
-            -->
             <subsection name="Introduction">
-                <p></p>
+                <p>
+                    This plugin provides an access to the <a href="http://recast.ai">Recast.AI</a> API.
+                </p>
+                <p>
+                    This API offers NLP (Natural Language Processing) features that
+                    extract from a sentence Intents and Entities.
+                </p>
             </subsection>
             <subsection name="Configuration">
-                <p></p>
+                <p>No configuration is required.</p>
             </subsection>
             <subsection name="Usage">
-                <p></p>
+                <p>This plugin is used by chatbots</p>
             </subsection>
         </section>
     </body>
