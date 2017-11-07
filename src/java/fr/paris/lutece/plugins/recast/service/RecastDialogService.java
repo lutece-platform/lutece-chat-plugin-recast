@@ -47,66 +47,98 @@ import java.util.Map;
 /**
  * RecastDialogService
  */
-public class RecastDialogService
+public final class RecastDialogService
 {
     private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String PROPERTY_DIALOG_API_URL = "recast.dialog.api.url";
 
-    private static ObjectMapper _mapper = new ObjectMapper();
+    private static ObjectMapper _mapper = new ObjectMapper( );
 
+
+    /** Private constructor */
+    private RecastDialogService()
+    {
+    }
+            
     /**
-     * Scan the CNI
+     * Call the Dialog API
      *
-     * @param strText The message
-     * @param strConversationId The consersation ID
-     * @param strToken The Recast bot token
-     * @param strLanguage The language
+     * @param strText
+     *            The message
+     * @param strConversationId
+     *            The consersation ID
+     * @param strToken
+     *            The Recast bot token
+     * @param strLanguage
+     *            The language
      * @return The Dialog response
-     * @throws HttpAccessException
-     * @throws IOException
+     * @throws HttpAccessException If an error occurs
+     * @throws IOException If an error occurs
      */
-    public static DialogResponse getDialogResponse(String strText, String strConversationId, String strToken, String strLanguage  ) throws HttpAccessException, IOException
+    public static DialogResponse getDialogResponse( String strText, String strConversationId, String strToken, String strLanguage ) throws HttpAccessException,
+            IOException
     {
         DialogResponse response;
-        HttpAccess client = new HttpAccess();
-        String strURL = AppPropertiesService.getProperty(PROPERTY_DIALOG_API_URL);
-        String strJson = getJson(strText ,strConversationId, strLanguage );
+        HttpAccess client = new HttpAccess( );
+        String strURL = AppPropertiesService.getProperty( PROPERTY_DIALOG_API_URL );
+        String strJson = getJson( strText, strConversationId, strLanguage );
         Map<String, String> mapHeaders = getHeaders( strToken );
-        String strResponse = client.doPostJSON(strURL, strJson, mapHeaders, null);
-        response = parse(strResponse);
+        String strResponse = client.doPostJSON( strURL, strJson, mapHeaders, null );
+        response = parse( strResponse );
         return response;
     }
 
     /**
-     * Parse the response of the scanner server
+     * Parse the response
      *
-     * @param strJSON The response as JSON
+     * @param strJSON
+     *            The response as JSON
      * @return The DialogResponse object
-     * @throws IOException An exception
+     * @throws IOException
+     *             An exception
      */
-    public static DialogResponse parse(String strJSON) throws IOException
+    public static DialogResponse parse( String strJSON ) throws IOException
     {
-        JsonNode nodeRoot = _mapper.readTree(strJSON);
-        JsonNode nodeResults = nodeRoot.get("results");
-        String strResponseJSON = nodeResults.toString();
-        DialogResponse response = _mapper.readValue(strResponseJSON, DialogResponse.class);
+        JsonNode nodeRoot = _mapper.readTree( strJSON );
+        JsonNode nodeResults = nodeRoot.get( "results" );
+        String strResponseJSON = nodeResults.toString( );
+        DialogResponse response = _mapper.readValue( strResponseJSON, DialogResponse.class );
 
         AppLogService.debug( "Recast Response JSON : " + strResponseJSON );
-        
+
         return response;
     }
 
-    private static String getJson(String strText, String strConversationId, String strLanguage  )
+    /**
+     * Build the JSON for the request
+     * 
+     * @param strText
+     *            The user message
+     * @param strConversationId
+     *            The conversation ID
+     * @param strLanguage
+     *            The language
+     * @return The JSON
+     */
+    private static String getJson( String strText, String strConversationId, String strLanguage )
     {
-        String strJSON = String.format("{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"%s\" , \"language\": \"%s\" }", strText , strConversationId , strLanguage  );
+        String strJSON = String.format( "{\"message\": {\"content\":\"%s\",\"type\":\"text\"}, \"conversation_id\": \"%s\" , \"language\": \"%s\" }", strText,
+                strConversationId, strLanguage );
         AppLogService.debug( "Recast Request JSON : " + strJSON );
         return strJSON;
     }
 
+    /**
+     * Build the header for the request
+     * 
+     * @param strToken
+     *            The Access Token
+     * @return The headers map
+     */
     private static Map<String, String> getHeaders( String strToken )
     {
-        Map<String, String> mapHeaders = new HashMap<>();
-        mapHeaders.put(HEADER_AUTHORIZATION, "Token " + strToken);
+        Map<String, String> mapHeaders = new HashMap<>( );
+        mapHeaders.put( HEADER_AUTHORIZATION, "Token " + strToken );
 
         return mapHeaders;
     }

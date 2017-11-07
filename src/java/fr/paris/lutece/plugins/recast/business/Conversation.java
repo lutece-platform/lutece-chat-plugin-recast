@@ -36,7 +36,6 @@ package fr.paris.lutece.plugins.recast.business;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 /**
