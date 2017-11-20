@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>plugin-recast</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Lutece recast plugin</name>
 
@@ -51,13 +51,14 @@
     <properties>
         <componentName>recast</componentName>
         <jiraProjectName>RECAST</jiraProjectName>
-        <jiraComponentId></jiraComponentId>
+        <jiraComponentId />
     </properties>
     
     <scm>
         <connection>scm:git:https://github.com/lutece-platform/lutece-chat-plugin-recast.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-chat-plugin-recast.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-chat-plugin-recast.git</url>
-    </scm>
+      <tag>plugin-recast-1.0.0</tag>
+  </scm>
     
 </project>
