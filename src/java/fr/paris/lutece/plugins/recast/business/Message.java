@@ -35,18 +35,32 @@
 package fr.paris.lutece.plugins.recast.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import fr.paris.lutece.plugins.recast.service.card.CardRenderer;
+import fr.paris.lutece.plugins.recast.service.card.DefaultCardRenderer;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 
 /**
  * Message
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class Message implements Serializable
+public class Message extends HashMap<String, Object> implements Serializable
 {
-    // Variables declarations
-    private String _strType;
-    private String _strContent;
+    private static final String TYPE_TEXT = "text";
+    private static final String TYPE_CARD = "card";
+    private static final String FIELD_TYPE = "type";
+    private static final String FIELD_CONTENT = "content";
+    private static final String FIELD_TITLE = "title";
+    private static final String FIELD_BUTTONS = "buttons";
+    private static final String FIELD_VALUE = "value";
 
+   
     /**
      * Returns the Type
      * 
@@ -54,38 +68,45 @@ public class Message implements Serializable
      */
     public String getType( )
     {
-        return _strType;
+        return (String) get( FIELD_TYPE );
     }
 
-    /**
-     * Sets the Type
-     * 
-     * @param strType
-     *            The Type
-     */
-    public void setType( String strType )
-    {
-        _strType = strType;
-    }
-
-    /**
+   /**
      * Returns the Content
      * 
      * @return The Content
      */
-    public String getContent( )
+    public String getContent()
     {
-        return _strContent;
+        return getContent( null );
     }
-
+    
+    
     /**
-     * Sets the Content
+     * Returns the Content
      * 
-     * @param strContent
-     *            The Content
+     * @param renderer Card Renderer
+     * @return The Content
      */
-    public void setContent( String strContent )
+    public String getContent( CardRenderer renderer )
     {
-        _strContent = strContent;
+        String strType = getType ();
+        if( strType.equals( TYPE_TEXT ))
+        {
+            return (String) get( FIELD_CONTENT );
+        }
+        if( strType.equals( TYPE_CARD ) && renderer != null )
+        {
+            Map map = (Map) get( FIELD_CONTENT );
+            String strReturn = (String) map.get( FIELD_TITLE );
+            List<Map> listButtons =  (List<Map>) map.get(  FIELD_BUTTONS );
+            for( Map mapButton : listButtons )
+            {
+                strReturn += renderer.renderButton( mapButton );
+            }
+            return strReturn;
+        }
+        return "";
     }
+   
 }

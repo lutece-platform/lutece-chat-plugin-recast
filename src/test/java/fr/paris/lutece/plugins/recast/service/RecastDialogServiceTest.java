@@ -35,6 +35,11 @@
 package fr.paris.lutece.plugins.recast.service;
 
 import fr.paris.lutece.plugins.recast.business.DialogResponse;
+import fr.paris.lutece.plugins.recast.business.Message;
+import fr.paris.lutece.plugins.recast.service.card.CardRenderer;
+import fr.paris.lutece.plugins.recast.service.card.MockCardRenderer;
+import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.test.Utils;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -42,18 +47,10 @@ import static org.junit.Assert.*;
  *
  * @author pierre
  */
-public class RecastDialogServiceTest
+public class RecastDialogServiceTest 
 {
-    private static final String JSON = "{\n" + "    \"messages\": [\n" + "        {\n" + "            \"type\": \"text\",\n"
-            + "            \"content\": \"Hello :-)\"\n" + "        }\n" + "    ],\n" + "    \"conversation\": {\n" + "        \"id\": \"CONVERSATION_ID\",\n"
-            + "        \"language\": \"en\",\n" + "        \"memory\": {},\n" + "        \"skill\": \"default\",\n" + "        \"skill_occurences\": 1\n"
-            + "    },\n" + "    \"nlp\": {\n" + "        \"uuid\": \"b96bc782-6aba-4fac-aeaa-2326936b08bf\",\n" + "        \"source\": \"Hello Recast\",\n"
-            + "        \"intents\": [\n" + "            {\n" + "                \"slug\": \"greetings\",\n" + "                \"confidence\": 0.99\n"
-            + "            }\n" + "        ],\n" + "        \"act\": \"assert\",\n" + "        \"type\": null,\n" + "        \"sentiment\": \"neutral\",\n"
-            + "        \"entities\": {},\n" + "        \"language\": \"en\",\n" + "        \"processing_language\": \"en\",\n"
-            + "        \"version\": \"2.10.1\",\n" + "        \"timestamp\": \"2017-10-19T13:24:12.984856+00:00\",\n" + "        \"status\": 200\n" + "    }\n"
-            + "}";
-
+    private static final String JSON_FILE = "dialog.json";
+    
     /**
      * Test of getDialogResponse method, of class RecastDialogService.
      */
@@ -63,13 +60,21 @@ public class RecastDialogServiceTest
      */
     /**
      * Test of parse method, of class RecastDialogService.
+     * @throws java.lang.Exception
      */
     @Test
     public void testParse( ) throws Exception
     {
         System.out.println( "parse" );
-        DialogResponse expResult = null;
-        DialogResponse result = RecastDialogService.parse( JSON );
+
+        String strJSON = Utils.getFileContent( JSON_FILE );
+        System.err.println( strJSON );
+        DialogResponse result = RecastDialogService.parse( strJSON );
+        CardRenderer renderer = new MockCardRenderer();
+        for( Message message : result.getMessages())
+        {
+            System.out.println( message.getType() + " : " + message.getContent( renderer ) );
+        }
     }
 
 }

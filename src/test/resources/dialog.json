@@ -1,0 +1,59 @@
+{
+    "results":    
+            {
+                "messages": [
+                    {
+                        "type": "text",
+                        "content": "Hello :-)"
+                    },
+                    {
+                        "type": "card",
+                        "content": {
+                            "title": "Votre choix",
+                            "buttons": [
+                                {
+                                    "value": "yes",
+                                    "title": "Yes",
+                                    "type": "postback"
+                                },
+                                {
+                                    "value": "no",
+                                    "title": "No",
+                                    "type": "postback"
+                                }
+                            ]
+                        }
+                    }    
+                ],
+                "conversation": {
+                    "id": "CONVERSATION_ID",
+                    "language": "en",
+                    "memory": {},
+                    "skill": "default",
+                    "skill_occurences": 1
+                },
+                "nlp": {
+                    "uuid": "b96bc782-6aba-4fac-aeaa-2326936b08bf",
+                    "source": "Hello Recast",
+                    "intents": [
+                        {
+                            "slug": "greetings",
+                            "confidence": 0.99
+                        }
+                    ],
+                    "act": "assert",
+                    "type": null,
+                    "sentiment": "neutral",
+                    "entities": {},
+                    "language": "en",
+                    "processing_language": "en",
+                    "version": "2.10.1",
+                    "timestamp": "2017-10-19T13:24:12.984856+00:00",
+                    "status": 200
+                }
+            }
+}
+
+
+
+
