@@ -47,8 +47,8 @@ import java.util.Map;
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Message extends HashMap<String, Object> implements Serializable
 {
-    private static final String TYPE_TEXT = "text";
-    private static final String TYPE_CARD = "card";
+    public static final String TYPE_TEXT = "text";
+    public static final String TYPE_CARD = "card";
     private static final String FIELD_TYPE = "type";
     private static final String FIELD_CONTENT = "content";
 

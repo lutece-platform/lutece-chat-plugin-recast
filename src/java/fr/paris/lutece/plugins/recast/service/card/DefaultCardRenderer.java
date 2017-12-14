@@ -46,8 +46,8 @@ import java.util.Map;
  */
 public class DefaultCardRenderer implements CardRenderer
 {
-    private static final String TEMPLATE_DEFAULT_BUTTON = "skin/plugins/recast/card_button.html";
-    private static final String MARK_CARD = "card";
+    private static final String TEMPLATE_DEFAULT_BUTTON = "skin/plugins/recast/default_card.html";
+    private static final String MARK_CARD = "cardmap";
     
     
     /**
