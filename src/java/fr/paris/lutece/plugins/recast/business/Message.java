@@ -36,13 +36,8 @@ package fr.paris.lutece.plugins.recast.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.paris.lutece.plugins.recast.service.card.CardRenderer;
-import fr.paris.lutece.plugins.recast.service.card.DefaultCardRenderer;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.portal.web.l10n.LocaleService;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -56,9 +51,6 @@ public class Message extends HashMap<String, Object> implements Serializable
     private static final String TYPE_CARD = "card";
     private static final String FIELD_TYPE = "type";
     private static final String FIELD_CONTENT = "content";
-    private static final String FIELD_TITLE = "title";
-    private static final String FIELD_BUTTONS = "buttons";
-    private static final String FIELD_VALUE = "value";
 
    
     /**
@@ -97,14 +89,8 @@ public class Message extends HashMap<String, Object> implements Serializable
         }
         if( strType.equals( TYPE_CARD ) && renderer != null )
         {
-            Map map = (Map) get( FIELD_CONTENT );
-            String strReturn = (String) map.get( FIELD_TITLE );
-            List<Map> listButtons =  (List<Map>) map.get(  FIELD_BUTTONS );
-            for( Map mapButton : listButtons )
-            {
-                strReturn += renderer.renderButton( mapButton );
-            }
-            return strReturn;
+            Map mapCard = (Map) get( FIELD_CONTENT );
+            return renderer.render( mapCard );
         }
         return "";
     }

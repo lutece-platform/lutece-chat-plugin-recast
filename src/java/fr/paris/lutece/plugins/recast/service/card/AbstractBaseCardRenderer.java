@@ -39,28 +39,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * MockCardRenderer
+ * AbstractBaseCardRenderer
  */
-public class MockCardRenderer extends AbstractBaseCardRenderer implements CardRenderer
+public abstract class AbstractBaseCardRenderer implements CardRenderer
 {
-
-    @Override
-    public String render( Map mapCard )
+    protected String getTitle( Map<String,Object> mapCard )
     {
-        String strTitle = getTitle( mapCard );
-        List<Map<String, Object>> listButtons = getButtons( mapCard );
-        
-        StringBuilder sbOutput = new StringBuilder();
-        
-        sbOutput.append( " Title " ).append( strTitle )
-                .append( "\n Buttons : " );
-        for( Map<String,Object> mapButton : listButtons )
-        {
-            sbOutput.append( "\n Button Title : " ).append( getButtonTitle( mapButton ) )
-                    .append( " - Button value : " ).append( getButtonValue( mapButton ) );
-        }
-        
-        return sbOutput.toString();
+        return (String) mapCard.get( FIELD_TITLE );
     }
-
+    
+    protected List<Map<String,Object>> getButtons( Map<String,Object> mapCard )
+    {
+        return (List<Map<String,Object>>) mapCard.get( FIELD_BUTTONS );
+    }
+    
+    protected String getButtonTitle( Map<String,Object> mapButton )
+    {
+        return(String) mapButton.get( FIELD_TITLE );
+    }
+    
+    protected String getButtonValue( Map<String,Object> mapButton )
+    {
+        return(String) mapButton.get( FIELD_VALUE );
+    }
+    
 }

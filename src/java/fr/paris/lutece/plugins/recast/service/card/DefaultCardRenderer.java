@@ -47,17 +47,17 @@ import java.util.Map;
 public class DefaultCardRenderer implements CardRenderer
 {
     private static final String TEMPLATE_DEFAULT_BUTTON = "skin/plugins/recast/card_button.html";
-    private static final String MARK_BUTTON = "button";
+    private static final String MARK_CARD = "card";
     
     
     /**
      * {@inheritDoc }
      */
     @Override
-    public String renderButton( Map mapButton )
+    public String render( Map mapCard )
     {
         Map<String, Object> model = new HashMap<>();
-        model.put( MARK_BUTTON , mapButton );
+        model.put( MARK_CARD , mapCard );
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_DEFAULT_BUTTON, LocaleService.getDefault(), model );
         
         return template.getHtml();

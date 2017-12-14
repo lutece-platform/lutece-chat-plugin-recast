@@ -42,10 +42,14 @@ import java.util.Map;
  */
 public interface CardRenderer 
 {
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_BUTTONS = "buttons";
+    public static final String FIELD_VALUE = "value";
+    
     /**
-     * Render a button
-     * @param mapButton The button map
-     * @return The rendered button
+     * Render a card
+     * @param mapCard The card map
+     * @return The rendered card
      */
-    String renderButton( Map mapButton );
+    String render( Map mapCard );
 }
