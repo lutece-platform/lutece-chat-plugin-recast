@@ -32,63 +32,50 @@
  * License 1.0
  */
 
-package fr.paris.lutece.plugins.recast.business;
+package fr.paris.lutece.plugins.recast.service.renderers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * Message
+ * DefaultTextRenderer
  */
-@JsonIgnoreProperties( ignoreUnknown = true )
-public class Message extends HashMap<String, Object> implements Serializable
+public class DefaultTextRenderer implements BotMessageRenderer
 {
-    public static final String TYPE_TEXT = "text";
-    public static final String TYPE_CARD = "card";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_CONTENT = "content";
+    public static final String CONTENT_TYPE = "text";
+
+    // Pattern for recognizing a URL, based off RFC 3986
+    private static final Pattern PATTERN_URL = Pattern.compile( "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)" + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
+            + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL );
 
     /**
-     * Returns the Type
-     * 
-     * @return The Type
+     * {@inheritDoc }
      */
-    public String getType( )
+    @Override
+    public String render( Object content )
     {
-        return (String) get( FIELD_TYPE );
-    }
-
-    /**
-     * Returns the Content
-     * 
-     * @return The Content
-     */
-    public String getContent( )
-    {
-        return getContent( null );
-    }
-
-    /**
-     * Returns the Content
-     * 
-     * @param mapRenderers
-     *            renderers
-     * @return The Content
-     */
-    public String getContent( Map<String, BotMessageRenderer> mapRenderers )
-    {
-        String strContent = "";
-        String strType = getType( );
-        BotMessageRenderer renderer = mapRenderers.get( strType );
-        if ( renderer != null )
+        String strContent = (String) content;
+        StringBuilder sbRendered = new StringBuilder( );
+        Matcher matcher = PATTERN_URL.matcher( strContent );
+        int nPos = 0;
+        while ( matcher.find( ) )
         {
-            Object content = get( FIELD_CONTENT );
-            strContent = renderer.render( content );
+            int nMatchStart = matcher.start( 1 );
+            int nMatchEnd = matcher.end( );
+            String strUrl = strContent.substring( nMatchStart, nMatchEnd );
+            sbRendered.append( strContent.substring( nPos, nMatchStart ) );
+            sbRendered.append( "<a href=\"" ).append( strUrl ).append( "\">" ).append( strUrl ).append( "</a>" );
+            nPos = nMatchEnd;
         }
-        return strContent;
+        sbRendered.append( strContent.substring( nPos ) );
+
+        String strRendered = sbRendered.toString( );
+
+        strRendered = strRendered.replace( '\n', ' ' );
+        strRendered = strRendered.replace( '\r', ' ' );
+
+        return strRendered;
     }
 
 }

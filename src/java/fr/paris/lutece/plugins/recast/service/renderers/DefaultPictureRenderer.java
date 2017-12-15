@@ -32,63 +32,37 @@
  * License 1.0
  */
 
-package fr.paris.lutece.plugins.recast.business;
+package fr.paris.lutece.plugins.recast.service.renderers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import java.io.Serializable;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Message
+ * DefaultPictureRenderer
  */
-@JsonIgnoreProperties( ignoreUnknown = true )
-public class Message extends HashMap<String, Object> implements Serializable
+public class DefaultPictureRenderer implements BotMessageRenderer
 {
-    public static final String TYPE_TEXT = "text";
-    public static final String TYPE_CARD = "card";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_CONTENT = "content";
+    public static final String CONTENT_TYPE = "picture";
+
+    private static final String TEMPLATE_DEFAULT_PICTURE = "skin/plugins/recast/default_picture.html";
+    private static final String MARK_URL = "url";
 
     /**
-     * Returns the Type
-     * 
-     * @return The Type
+     * {@inheritDoc }
      */
-    public String getType( )
+    @Override
+    public String render( Object content )
     {
-        return (String) get( FIELD_TYPE );
-    }
+        String strImageUrl = (String) content;
+        Map<String, Object> model = new HashMap<>( );
+        model.put( MARK_URL, strImageUrl );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_DEFAULT_PICTURE, LocaleService.getDefault( ), model );
 
-    /**
-     * Returns the Content
-     * 
-     * @return The Content
-     */
-    public String getContent( )
-    {
-        return getContent( null );
-    }
-
-    /**
-     * Returns the Content
-     * 
-     * @param mapRenderers
-     *            renderers
-     * @return The Content
-     */
-    public String getContent( Map<String, BotMessageRenderer> mapRenderers )
-    {
-        String strContent = "";
-        String strType = getType( );
-        BotMessageRenderer renderer = mapRenderers.get( strType );
-        if ( renderer != null )
-        {
-            Object content = get( FIELD_CONTENT );
-            strContent = renderer.render( content );
-        }
-        return strContent;
+        return template.getHtml( );
     }
 
 }

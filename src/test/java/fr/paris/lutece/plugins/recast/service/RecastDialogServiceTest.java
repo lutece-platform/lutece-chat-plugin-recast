@@ -36,21 +36,20 @@ package fr.paris.lutece.plugins.recast.service;
 
 import fr.paris.lutece.plugins.recast.business.DialogResponse;
 import fr.paris.lutece.plugins.recast.business.Message;
-import fr.paris.lutece.plugins.recast.service.card.CardRenderer;
 import fr.paris.lutece.plugins.recast.service.card.MockCardRenderer;
-import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.test.Utils;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author pierre
  */
-public class RecastDialogServiceTest 
+public class RecastDialogServiceTest
 {
     private static final String JSON_FILE = "dialog.json";
-    
+
     /**
      * Test of getDialogResponse method, of class RecastDialogService.
      */
@@ -60,6 +59,7 @@ public class RecastDialogServiceTest
      */
     /**
      * Test of parse method, of class RecastDialogService.
+     * 
      * @throws java.lang.Exception
      */
     @Test
@@ -70,10 +70,12 @@ public class RecastDialogServiceTest
         String strJSON = Utils.getFileContent( JSON_FILE );
         System.err.println( strJSON );
         DialogResponse result = RecastDialogService.parse( strJSON );
-        CardRenderer renderer = new MockCardRenderer();
-        for( Message message : result.getMessages())
+        BotMessageRenderer rendererCard = new MockCardRenderer( );
+        Map<String, BotMessageRenderer> mapRenderers = new HashMap<>( );
+        mapRenderers.put( "card", rendererCard );
+        for ( Message message : result.getMessages( ) )
         {
-            System.out.println( message.getType() + " : " + message.getContent( renderer ) );
+            System.out.println( message.getType( ) + " : " + message.getContent( mapRenderers ) );
         }
     }
 

@@ -32,63 +32,19 @@
  * License 1.0
  */
 
-package fr.paris.lutece.plugins.recast.business;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+package fr.paris.lutece.plugins.recast.service;
 
 /**
- * Message
+ * BotMessageRenderer
  */
-@JsonIgnoreProperties( ignoreUnknown = true )
-public class Message extends HashMap<String, Object> implements Serializable
+public interface BotMessageRenderer
 {
-    public static final String TYPE_TEXT = "text";
-    public static final String TYPE_CARD = "card";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_CONTENT = "content";
-
     /**
-     * Returns the Type
+     * Render a bot message
      * 
-     * @return The Type
+     * @param content
+     *            The content
+     * @return The rendered message
      */
-    public String getType( )
-    {
-        return (String) get( FIELD_TYPE );
-    }
-
-    /**
-     * Returns the Content
-     * 
-     * @return The Content
-     */
-    public String getContent( )
-    {
-        return getContent( null );
-    }
-
-    /**
-     * Returns the Content
-     * 
-     * @param mapRenderers
-     *            renderers
-     * @return The Content
-     */
-    public String getContent( Map<String, BotMessageRenderer> mapRenderers )
-    {
-        String strContent = "";
-        String strType = getType( );
-        BotMessageRenderer renderer = mapRenderers.get( strType );
-        if ( renderer != null )
-        {
-            Object content = get( FIELD_CONTENT );
-            strContent = renderer.render( content );
-        }
-        return strContent;
-    }
-
+    String render( Object content );
 }

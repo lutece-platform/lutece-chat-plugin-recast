@@ -32,63 +32,39 @@
  * License 1.0
  */
 
-package fr.paris.lutece.plugins.recast.business;
+package fr.paris.lutece.plugins.recast.service.renderers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import java.io.Serializable;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Message
+ * AbstractBaseCardRenderer
  */
-@JsonIgnoreProperties( ignoreUnknown = true )
-public class Message extends HashMap<String, Object> implements Serializable
+public abstract class AbstractBaseCardRenderer implements BotMessageRenderer
 {
-    public static final String TYPE_TEXT = "text";
-    public static final String TYPE_CARD = "card";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_CONTENT = "content";
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_BUTTONS = "buttons";
+    public static final String FIELD_VALUE = "value";
 
-    /**
-     * Returns the Type
-     * 
-     * @return The Type
-     */
-    public String getType( )
+    protected String getTitle( Map<String, Object> mapCard )
     {
-        return (String) get( FIELD_TYPE );
+        return (String) mapCard.get( FIELD_TITLE );
     }
 
-    /**
-     * Returns the Content
-     * 
-     * @return The Content
-     */
-    public String getContent( )
+    protected List<Map<String, Object>> getButtons( Map<String, Object> mapCard )
     {
-        return getContent( null );
+        return (List<Map<String, Object>>) mapCard.get( FIELD_BUTTONS );
     }
 
-    /**
-     * Returns the Content
-     * 
-     * @param mapRenderers
-     *            renderers
-     * @return The Content
-     */
-    public String getContent( Map<String, BotMessageRenderer> mapRenderers )
+    protected String getButtonTitle( Map<String, Object> mapButton )
     {
-        String strContent = "";
-        String strType = getType( );
-        BotMessageRenderer renderer = mapRenderers.get( strType );
-        if ( renderer != null )
-        {
-            Object content = get( FIELD_CONTENT );
-            strContent = renderer.render( content );
-        }
-        return strContent;
+        return (String) mapButton.get( FIELD_TITLE );
+    }
+
+    protected String getButtonValue( Map<String, Object> mapButton )
+    {
+        return (String) mapButton.get( FIELD_VALUE );
     }
 
 }

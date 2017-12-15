@@ -32,35 +32,35 @@
  * License 1.0
  */
 
-
 package fr.paris.lutece.plugins.recast.service.card;
 
+import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
+import fr.paris.lutece.plugins.recast.service.renderers.AbstractBaseCardRenderer;
 import java.util.List;
 import java.util.Map;
 
 /**
  * MockCardRenderer
  */
-public class MockCardRenderer extends AbstractBaseCardRenderer implements CardRenderer
+public class MockCardRenderer extends AbstractBaseCardRenderer implements BotMessageRenderer
 {
 
     @Override
-    public String render( Map mapCard )
+    public String render( Object content )
     {
+        Map mapCard = (Map) content;
         String strTitle = getTitle( mapCard );
         List<Map<String, Object>> listButtons = getButtons( mapCard );
-        
-        StringBuilder sbOutput = new StringBuilder();
-        
-        sbOutput.append( " Title " ).append( strTitle )
-                .append( "\n Buttons : " );
-        for( Map<String,Object> mapButton : listButtons )
+
+        StringBuilder sbOutput = new StringBuilder( );
+
+        sbOutput.append( " Title " ).append( strTitle ).append( "\n Buttons : " );
+        for ( Map<String, Object> mapButton : listButtons )
         {
-            sbOutput.append( "\n Button Title : " ).append( getButtonTitle( mapButton ) )
-                    .append( " - Button value : " ).append( getButtonValue( mapButton ) );
+            sbOutput.append( "\n Button Title : " ).append( getButtonTitle( mapButton ) ).append( " - Button value : " ).append( getButtonValue( mapButton ) );
         }
-        
-        return sbOutput.toString();
+
+        return sbOutput.toString( );
     }
 
 }

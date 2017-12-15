@@ -54,12 +54,11 @@ public final class RecastDialogService
 
     private static ObjectMapper _mapper = new ObjectMapper( );
 
-
     /** Private constructor */
-    private RecastDialogService()
+    private RecastDialogService( )
     {
     }
-            
+
     /**
      * Call the Dialog API
      *
@@ -72,8 +71,10 @@ public final class RecastDialogService
      * @param strLanguage
      *            The language
      * @return The Dialog response
-     * @throws HttpAccessException If an error occurs
-     * @throws IOException If an error occurs
+     * @throws HttpAccessException
+     *             If an error occurs
+     * @throws IOException
+     *             If an error occurs
      */
     public static DialogResponse getDialogResponse( String strText, String strConversationId, String strToken, String strLanguage ) throws HttpAccessException,
             IOException
