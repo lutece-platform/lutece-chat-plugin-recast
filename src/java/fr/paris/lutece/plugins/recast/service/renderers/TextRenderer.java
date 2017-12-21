@@ -39,17 +39,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * DefaultTextRenderer
+ * TextRenderer
  */
-public class DefaultTextRenderer implements BotMessageRenderer
+public class TextRenderer implements BotMessageRenderer
 {
-    public static final String CONTENT_TYPE = "text";
+    private static final String MESSAGE_TYPE = "text";
 
     // Pattern for recognizing a URL, based off RFC 3986
     private static final Pattern PATTERN_URL = Pattern.compile( "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)" + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
             + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL );
 
-    /**
+     /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String getMessageType()
+    {
+        return MESSAGE_TYPE;
+    }
+    
+   /**
      * {@inheritDoc }
      */
     @Override

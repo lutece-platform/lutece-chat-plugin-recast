@@ -47,4 +47,11 @@ public interface BotMessageRenderer
      * @return The rendered message
      */
     String render( Object content );
+    
+    
+    /**
+     * Return the message type handled by the renderer
+     * @return The message type
+     */
+    String getMessageType();
 }

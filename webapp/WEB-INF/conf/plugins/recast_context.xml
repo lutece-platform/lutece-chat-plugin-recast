@@ -2,8 +2,27 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
+    
+    <!-- Renderers --> 
 
-
+    <bean id="recast.renderer.Text" class="fr.paris.lutece.plugins.recast.service.renderers.TextRenderer" />
+    <bean id="recast.renderer.Picture" class="fr.paris.lutece.plugins.recast.service.renderers.MediaRenderer" >
+        <property name="messageType" value="picture" />
+        <property name="template" value="skin/plugins/recast/picture.html" />
+    </bean>
+    <bean id="recast.renderer.Video" class="fr.paris.lutece.plugins.recast.service.renderers.MediaRenderer" >
+        <property name="messageType" value="video" />
+        <property name="template" value="skin/plugins/recast/video.html" />
+    </bean>
+    <bean id="recast.renderer.Card" class="fr.paris.lutece.plugins.recast.service.renderers.BaseRenderer" >
+        <property name="messageType" value="card" />
+        <property name="template" value="skin/plugins/recast/card.html" />
+    </bean>
+    <bean id="recast.renderer.QuickReplies" class="fr.paris.lutece.plugins.recast.service.renderers.BaseRenderer" >
+        <property name="messageType" value="quickReplies" />
+        <property name="template" value="skin/plugins/recast/quick_replies.html" />
+    </bean>
+      
 </beans>

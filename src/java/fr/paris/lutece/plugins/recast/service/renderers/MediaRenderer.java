@@ -35,36 +35,32 @@
 package fr.paris.lutece.plugins.recast.service.renderers;
 
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import java.util.List;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
- * AbstractBaseCardRenderer
+ * MediaRenderer
  */
-public abstract class AbstractBaseCardRenderer implements BotMessageRenderer
+public class MediaRenderer extends BaseRenderer implements BotMessageRenderer
 {
-    public static final String FIELD_TITLE = "title";
-    public static final String FIELD_BUTTONS = "buttons";
-    public static final String FIELD_VALUE = "value";
+    private static final String MARK_URL = "url";
 
-    protected String getTitle( Map<String, Object> mapCard )
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String render( Object content )
     {
-        return (String) mapCard.get( FIELD_TITLE );
+        String strImageUrl = (String) content;
+        Map<String, Object> model = new HashMap<>( );
+        model.put( MARK_URL, strImageUrl );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), LocaleService.getDefault( ), model );
+
+        return template.getHtml( );
     }
 
-    protected List<Map<String, Object>> getButtons( Map<String, Object> mapCard )
-    {
-        return (List<Map<String, Object>>) mapCard.get( FIELD_BUTTONS );
-    }
-
-    protected String getButtonTitle( Map<String, Object> mapButton )
-    {
-        return (String) mapButton.get( FIELD_TITLE );
-    }
-
-    protected String getButtonValue( Map<String, Object> mapButton )
-    {
-        return (String) mapButton.get( FIELD_VALUE );
-    }
 
 }

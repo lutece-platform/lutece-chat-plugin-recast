@@ -35,15 +35,24 @@
 package fr.paris.lutece.plugins.recast.service.card;
 
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
-import fr.paris.lutece.plugins.recast.service.renderers.AbstractBaseCardRenderer;
+import fr.paris.lutece.plugins.recast.service.renderers.BaseRenderer;
 import java.util.List;
 import java.util.Map;
 
 /**
  * MockCardRenderer
  */
-public class MockCardRenderer extends AbstractBaseCardRenderer implements BotMessageRenderer
+public class MockCardRenderer extends BaseRenderer implements BotMessageRenderer
 {
+    private static final String MESSAGE_TYPE = "card";
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String getMessageType()
+    {
+        return MESSAGE_TYPE;
+    }
 
     @Override
     public String render( Object content )
