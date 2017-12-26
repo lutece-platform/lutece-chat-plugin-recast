@@ -1,7 +1,11 @@
 ${content.title} <br>
 
-<#list content.buttons as button >
-    <button class="btn btn-info">
-        ${button.title} ${button.value} 
+<form action="jsp/site/Portal.jsp" method="post" >
+    <input type="hidden" name="page" value="chatbot" />
+    <input type="hidden" name="action" value="button_click" />
+    <#list content.buttons as button >
+    <button class="btn btn-info" name="button_value" value="${button.title}" type="submit">
+            ${button.title}  
     </button>
-</#list>
+    </#list>
+</form>
