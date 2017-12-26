@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.recast.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
+import fr.paris.lutece.plugins.recast.service.RenderersMap;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +52,9 @@ public class Message extends HashMap<String, Object> implements Serializable
     public static final String TYPE_CARD = "card";
     private static final String FIELD_TYPE = "type";
     private static final String FIELD_CONTENT = "content";
+    private static final String BEAN_RENDERERS_MAP = "recast.mapRenderers";
+    
+    private static RenderersMap _mapRenderers;
 
     /**
      * Returns the Type
@@ -68,7 +73,11 @@ public class Message extends HashMap<String, Object> implements Serializable
      */
     public String getContent( )
     {
-        return getContent( null );
+        if( _mapRenderers == null )
+        {
+            _mapRenderers = SpringContextService.getBean( BEAN_RENDERERS_MAP );
+        }
+        return getContent( _mapRenderers.getMap() );
     }
 
     /**

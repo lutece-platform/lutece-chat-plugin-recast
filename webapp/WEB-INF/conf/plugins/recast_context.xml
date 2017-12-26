@@ -24,5 +24,19 @@
         <property name="messageType" value="quickReplies" />
         <property name="template" value="skin/plugins/recast/quick_replies.html" />
     </bean>
-      
+     
+    <!--  Default Renderers Map --> 
+    
+    <bean id="recast.mapRenderers" class="fr.paris.lutece.plugins.recast.service.RenderersMap">
+        <property name="map">
+            <map>
+                <entry key="text" value-ref="recast.renderer.Text" />
+                <entry key="picture" value-ref="recast.renderer.Picture" />
+                <entry key="video" value-ref="recast.renderer.Video" />
+                <entry key="card" value-ref="recast.renderer.Card" />
+                <entry key="quickReplies" value-ref="recast.renderer.QuickReplies" />
+            </map>
+        </property>
+    </bean>
+       
 </beans>
