@@ -35,6 +35,11 @@
 package fr.paris.lutece.plugins.recast.service.renderers;
 
 import fr.paris.lutece.plugins.recast.service.BotMessageRenderer;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +48,8 @@ import java.util.regex.Pattern;
  */
 public class TextRenderer implements BotMessageRenderer
 {
+    private static final String TEMPLATE_LINK = "skin/plugins/recast/link.html";
+    private static final String MARK_URL = "url";
     private static final String MESSAGE_TYPE = "text";
 
     // Pattern for recognizing a URL, based off RFC 3986
@@ -74,7 +81,7 @@ public class TextRenderer implements BotMessageRenderer
             int nMatchEnd = matcher.end( );
             String strUrl = strContent.substring( nMatchStart, nMatchEnd );
             sbRendered.append( strContent.substring( nPos, nMatchStart ) );
-            sbRendered.append( "<a href=\"" ).append( strUrl ).append( "\">" ).append( strUrl ).append( "</a>" );
+            sbRendered.append( linkBuilder( strUrl ) );
             nPos = nMatchEnd;
         }
         sbRendered.append( strContent.substring( nPos ) );
@@ -85,6 +92,19 @@ public class TextRenderer implements BotMessageRenderer
         strRendered = strRendered.replace( '\r', ' ' );
 
         return strRendered;
+    }
+    
+    /**
+     * Build an HTML link for a given URL
+     * @param strUrl The URL
+     * @return The link code
+     */
+    private String linkBuilder( String strUrl )
+    {
+        Map<String, Object> model = new HashMap<>();
+        model.put( MARK_URL , strUrl );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_LINK , LocaleService.getDefault(), model );
+        return template.getHtml();
     }
 
 }
