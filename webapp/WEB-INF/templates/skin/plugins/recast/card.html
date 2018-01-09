@@ -9,12 +9,17 @@ ${content.title} <br>
     <input type="hidden" name="page" value="chatbot" />
     <input type="hidden" name="action" value="button_click" />
     <#list content.buttons as button >
-    <#if button.type == "web_url">
-        <a href="${button.value}" class="btn btn-info" target="_blank">${button.title}</a>
-    <#else>
-    <button class="btn btn-info" name="button_value" value="${button.title}|${button.value}" type="submit">
-            ${button.title}  
-    </button>
-    </#if>
+        <#switch button.type>
+            <#case "web_url">
+                <a href="${button.value}" class="btn btn-info" target="_blank">${button.value}</a>
+                <#break>
+            <#case "phonenumber">
+                <a href="tel:+${button.value}" class="btn btn-info"><i class="fa fa-phone"></i>${button.value}</a>
+                <#break>
+            <#default>
+                <button class="btn btn-info" name="button_value" value="${button.title}|${button.value}" type="submit">
+                        ${button.title}  
+                </button>
+        </#switch>
     </#list>
 </form>
