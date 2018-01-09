@@ -14,7 +14,7 @@ ${content.title} <br>
                 <a href="${button.value}" class="btn btn-info" target="_blank">${button.value}</a>
                 <#break>
             <#case "phonenumber">
-                <a href="tel:+${button.value}" class="btn btn-info"><i class="fa fa-phone"></i>${button.value}</a>
+                <a href="tel:${button.value}" class="btn btn-info"><i class="fa fa-phone"></i> ${button.title}</a>
                 <#break>
             <#default>
                 <button class="btn btn-info" name="button_value" value="${button.title}|${button.value}" type="submit">
