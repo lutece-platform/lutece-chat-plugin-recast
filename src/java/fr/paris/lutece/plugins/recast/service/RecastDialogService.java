@@ -43,6 +43,8 @@ import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 /**
  * RecastDialogService
@@ -51,8 +53,12 @@ public final class RecastDialogService
 {
     private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String PROPERTY_DIALOG_API_URL = "recast.dialog.api.url";
+    private static final String PROPERTY_DEBUG = "recast.debug";
+    private static final String LOGGER_NAME = "recast";
+    private static final Logger LOGGER = Logger.getLogger( LOGGER_NAME );
 
     private static ObjectMapper _mapper = new ObjectMapper( );
+
 
     /** Private constructor */
     private RecastDialogService( )
@@ -85,6 +91,7 @@ public final class RecastDialogService
         String strJson = getJson( strText, strConversationId, strLanguage );
         Map<String, String> mapHeaders = getHeaders( strToken );
         String strResponse = client.doPostJSON( strURL, strJson, mapHeaders, null );
+        trace( strText , strResponse );
         response = parse( strResponse );
         return response;
     }
@@ -143,4 +150,20 @@ public final class RecastDialogService
 
         return mapHeaders;
     }
+    
+    /**
+     * Trace for debug
+     * @param strText Text sent to the server
+     * @param strResponse The server response
+     */
+    private static void trace( String strText, String strResponse )
+    {
+        boolean bDebug = AppPropertiesService.getPropertyBoolean( PROPERTY_DEBUG , true );
+        if( bDebug )
+        {
+            String strPrettyJson = ( new JSONObject( strResponse )).toString( 4 );
+            LOGGER.debug( "DIALOG API CALL :\n --> Message sent to server '" + strText + "'\n <-- Server response : " + strPrettyJson );
+        }
+    }
+    
 }
