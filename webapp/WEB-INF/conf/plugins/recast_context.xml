@@ -34,6 +34,7 @@
                 <entry key="picture" value-ref="recast.renderer.Picture" />
                 <entry key="video" value-ref="recast.renderer.Video" />
                 <entry key="card" value-ref="recast.renderer.Card" />
+                <entry key="buttons" value-ref="recast.renderer.Card" />
                 <entry key="quickReplies" value-ref="recast.renderer.QuickReplies" />
             </map>
         </property>

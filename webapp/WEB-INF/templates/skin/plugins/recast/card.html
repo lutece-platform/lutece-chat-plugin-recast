@@ -11,7 +11,10 @@ ${content.title} <br>
     <#list content.buttons as button >
         <#switch button.type>
             <#case "web_url">
-                <a href="${button.value}" class="btn btn-primary" target="_blank">${button.title}</a>
+                <a href="${button.value}" class="btn btn-primary" target="_blank">
+                    <i class="fa fa-link"> </i>
+                    ${button.title}
+                </a>
                 <#break>
             <#case "phonenumber">
                 <a href="tel:${button.value}" class="btn btn-primary"><i class="fa fa-phone"></i> ${button.title}</a>
