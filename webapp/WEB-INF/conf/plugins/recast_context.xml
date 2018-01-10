@@ -20,6 +20,10 @@
         <property name="messageType" value="card" />
         <property name="template" value="skin/plugins/recast/card.html" />
     </bean>
+    <bean id="recast.renderer.Buttons" class="fr.paris.lutece.plugins.recast.service.renderers.BaseRenderer" >
+        <property name="messageType" value="buttons" />
+        <property name="template" value="skin/plugins/recast/card.html" />
+    </bean>
     <bean id="recast.renderer.QuickReplies" class="fr.paris.lutece.plugins.recast.service.renderers.BaseRenderer" >
         <property name="messageType" value="quickReplies" />
         <property name="template" value="skin/plugins/recast/quick_replies.html" />
@@ -34,7 +38,7 @@
                 <entry key="picture" value-ref="recast.renderer.Picture" />
                 <entry key="video" value-ref="recast.renderer.Video" />
                 <entry key="card" value-ref="recast.renderer.Card" />
-                <entry key="buttons" value-ref="recast.renderer.Card" />
+                <entry key="buttons" value-ref="recast.renderer.Buttons" />
                 <entry key="quickReplies" value-ref="recast.renderer.QuickReplies" />
             </map>
         </property>
