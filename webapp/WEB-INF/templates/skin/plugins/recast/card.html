@@ -11,13 +11,13 @@ ${content.title} <br>
     <#list content.buttons as button >
         <#switch button.type>
             <#case "web_url">
-                <a href="${button.value}" class="btn btn-info" target="_blank">${button.value}</a>
+                <a href="${button.value}" class="btn btn-primary" target="_blank">${button.title}</a>
                 <#break>
             <#case "phonenumber">
-                <a href="tel:${button.value}" class="btn btn-info"><i class="fa fa-phone"></i> ${button.title}</a>
+                <a href="tel:${button.value}" class="btn btn-primary"><i class="fa fa-phone"></i> ${button.title}</a>
                 <#break>
-            <#default>
-                <button class="btn btn-info" name="button_value" value="${button.title}|${button.value}" type="submit">
+            <#case "postback">
+                <button class="btn btn-primary" name="button_value" value="${button.title}|${button.value}" type="submit">
                         ${button.title}  
                 </button>
         </#switch>
