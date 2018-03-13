@@ -34,15 +34,19 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
 /**
  * Intent
  */
+
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class Intent implements Serializable
 {
     // Variables declarations
     private String _strSlug;
+    private String _strDescription;
     private float _fConfidence;
 
     /**
@@ -64,6 +68,27 @@ public class Intent implements Serializable
     public void setSlug( String strSlug )
     {
         _strSlug = strSlug;
+    }
+
+    /**
+     * Returns the Description
+     * 
+     * @return The Description
+     */
+    public String getDescription( )
+    {
+        return _strDescription;
+    }
+
+    /**
+     * Sets the Description
+     * 
+     * @param strDescription
+     *            The Description
+     */
+    public void setDescription( String strDescription )
+    {
+        _strDescription = strDescription;
     }
 
     /**

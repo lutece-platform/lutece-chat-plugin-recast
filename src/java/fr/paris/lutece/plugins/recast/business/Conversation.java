@@ -34,6 +34,7 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Map;
@@ -41,6 +42,7 @@ import java.util.Map;
 /**
  * Conversation
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class Conversation implements Serializable
 {
 

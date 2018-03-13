@@ -34,12 +34,14 @@
 
 package fr.paris.lutece.plugins.recast.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * DialogResponse
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class DialogResponse implements Serializable
 {
     // Variables declarations
